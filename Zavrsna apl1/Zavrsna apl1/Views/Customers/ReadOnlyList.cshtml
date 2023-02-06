@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "ReadOnlyList";
+}
+
+<h2>ReadOnlyList</h2>
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <table id="Customers" class="table table-hover" style="width:100%">
+        <thead>
+            <tr class="table-primary">
+                <th scope="row">Name</th>
+                <th scope="row">DriverlicNo</th>
+                <th scope="row"></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+
+    <script>
+        var dataTable;
+        /*
+        * Inicijalizujemo DataTable na document ready: postavljamo putanju za Ajax podatke, definisemo kolone ...
+        */
+        $(document).ready(function () {
+
+            dataTable = $("#Customers").DataTable({
+                "ajax": {
+                    "url": "/Customers/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Name" },
+                    { "data": "DriverLicNo" },
+                    
+
+                    {"data":"Id" , "render" : function (data) {
+                                var myUrl = '@Url.Action("Details", "Customers")/' + data;
+                                return '<a href=\"' + myUrl + '\" class=\"btn btn-default btn-sm\">Details</a>';
+                        },
+                        "orderable": false,
+                        "searchable":false,
+                        "width":"150px"
+                    }
+                ],
+                "language": {
+                    "emptyTable" : "No data found, Please click on <b>Add New</b> Button"
+                }
+            });
+        });
+    </script>
+
+}
+

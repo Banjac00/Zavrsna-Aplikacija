@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Zavrsna_apl1.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customer</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover">
+    <tr class="table-primary">
+        <th scope="row">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th scope="row">
+            @Html.DisplayNameFor(model => model.DriverLicNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="table-primary">
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverLicNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CustomerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerId })
+        </td>
+    </tr>
+}
+
+</table>
